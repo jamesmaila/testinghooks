@@ -1,0 +1,16 @@
+name: Branch Deleted
+on:
+  delete:
+    branches:
+      - '**-withenv**'
+jobs:
+  delete:
+    if: github.event.ref_type == 'branch'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Extract Branch Name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: extract_branch
+      - name: BRANCH ECHO
+        run: echo ${{ steps.extract_branch.outputs.branch }}
